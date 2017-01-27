@@ -1,0 +1,68 @@
+{
+      "Args": {
+        "Description": "",
+        "Name": "",
+        "Settable": null,
+        "Value": null
+      },
+      "Description": "REX-Ray agent for Dell EMC ScaleIO",
+      "Documentation": "https://github.com/codedellemc/rexray-plugin",
+      "Entrypoint": [
+        "/usr/bin/rexray-agent", "service", "start", "-f", "-l", "debug"
+      ],
+      "Env": [
+        {
+          "Description": "",
+          "Name": "LIBSTORAGE_HOST",
+          "Settable": [
+            "value"
+          ],
+          "Value": ""
+        },
+        {
+          "Description": "",
+          "Name": "LIBSTORAGE_SERVICE",
+          "Settable": [
+            "value"
+          ],
+          "Value": ""
+        }
+      ],
+      "Interface": {
+        "Socket": "rexray.sock",
+        "Types": [
+          "docker.volumedriver/1.0"
+        ]
+      },
+      "Linux": {
+        "AllowAllDevices": true,
+        "Capabilities": ["CAP_SYS_ADMIN"],
+        "Devices": null
+      },
+      "Mounts": [
+        {
+          "Source": "/dev",
+          "Destination": "/dev",
+          "Type": "bind",
+          "Options": ["rbind"]
+        },
+        {
+          "Source": "/bin/emc",
+          "Destination": "/bin/emc",
+          "Type": "bind",
+          "Options": ["rbind"]
+        },
+        {
+          "Source": "/opt/emc/scaleio/sdc",
+          "Destination": "/opt/emc/scaleio/sdc",
+          "Type": "bind",
+          "Options": ["rbind"]
+        }
+      ],
+      "Network": {
+        "Type": "host"
+      },
+      "PropagatedMount": "/var/lib/libstorage/volumes",
+      "User": {},
+      "WorkDir": ""
+}
